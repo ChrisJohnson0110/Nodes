@@ -75,8 +75,6 @@ public class ClickedPos : MonoBehaviour
         NodeMenus.instance.ShowNodeInfomationMenu(node);
     }
 
-
-
     public void HidePlaceHolder()
     {
         PlaceHolder.GetComponent<SpriteRenderer>().enabled = false;

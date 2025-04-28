@@ -22,11 +22,18 @@ public class NodeManager : MonoBehaviour
 
     public void CreateNewNode(NodeData a_nodeData, Vector2 a_position)
     {
+        //node creation
         Node node = new Node(a_nodeData);
         node.nodeObject = Instantiate(a_nodeData.prefab);
         node.nodeObject.layer = LayerMask.NameToLayer("Node");
+        node.nodeObject.transform.SetParent(this.gameObject.transform);
         node.nodeObject.transform.position = a_position;
+
+        //add to existing nodes
         nodes[a_position] = node;
+
+        //update placement visual
+        RangeIndicator.instance.HideRangeIndicator();
     }
 
     public Node GetNode(GameObject a_gameObject)

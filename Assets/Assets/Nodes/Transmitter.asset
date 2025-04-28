@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a56947fd33a0473468fcb6e028f02850, type: 3}
+  m_Name: Transmitter
+  m_EditorClassIdentifier: 
+  nodeType: 2
+  prefab: {fileID: 2974674018742357825, guid: 7612f2dc4f9faf545af1b6855e923e84, type: 3}
+  connectionRange: 2
+  transferSpeed: 2
+  capacity: 2
