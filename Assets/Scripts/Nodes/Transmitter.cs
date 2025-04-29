@@ -11,14 +11,18 @@ public class Transmitter : Node
 
     protected override void OnTimerComplete()
     {
-        //get an object from the nodepacketmanager
-        //set pos to here
-        //set speed to this node speed
-        
-        //get target from node queue
-        //set target to node queue
-        //re add target to queue
+        GameObject PacketObject = NodePacketManager.instance.GetPacket();//get a new inactive packet object
+        //setup packet
+        Packet packet =  PacketObject.GetComponent<Packet>(); //get the packet class
+        packet.TargetObject = AddTarget(GetNextTarget()); //set the target and requeue it
+        packet.speed = GetSpeed();
+        PacketObject.transform.position = transform.position;
+        PacketObject.SetActive(true);
     }
 
+    public override void PacketArrived(GameObject a_packet)
+    {
+        Debug.LogError($"ERROR: PACKET ARRIVED AT TRANSMITTER {a_packet} ");
+    }
 
 }

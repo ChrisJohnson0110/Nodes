@@ -37,6 +37,10 @@ public class NodeManager : MonoBehaviour
         node.nodeObject.transform.SetParent(this.gameObject.transform);
         node.nodeObject.transform.position = a_position;
 
+        //add connections
+        AddNodeConnections(node);
+
+
         //add to existing nodes
         nodes[a_position] = node;
 
@@ -47,5 +51,73 @@ public class NodeManager : MonoBehaviour
     public Node GetNode(GameObject a_gameObject)
     {
         return nodes[a_gameObject.transform.position];
+    }
+
+    private void UpdateNeatbyNodes(Node a_node)
+    {
+        //add all nearby nodes into node queue
+        //update all nearby nodes adding new node to the queue
+    }
+
+    private void AddNodeConnections(Node a_node)
+    {
+        float range = a_node.nodeData.connectionRange;
+
+        foreach (Node node in nodes.Values)
+        {
+            if (node == a_node)
+            {
+                continue;
+            }
+            if (Vector2.Distance(a_node.transform.position, node.transform.position) < range)
+            {
+                switch (a_node.nodeData.nodeType)
+                {
+                    case NodeTypes.transmitter: Transmitter(a_node, node); break;
+                    case NodeTypes.Connection: Connection(a_node, node); break;
+                    case NodeTypes.Reciever: Reciever(a_node, node); break;
+                }
+            }
+        }
+    }
+
+    //nodeOne is the tpye of node that has just been created
+    //nodeTwo is the node that has been checked and needs to be connected
+    //this is the transmitter function so has been called because nodeOne is a transmitter node
+    //depending on nodeTwo the objects that can be connected change
+    private void Transmitter(Node a_nodeOne, Node a_nodeTwo)
+    {
+        switch (a_nodeTwo.nodeData.nodeType)
+        {
+            case NodeTypes.transmitter: Debug.Log("cant connect to transmitter"); break;
+            case NodeTypes.Connection: FormConnection(a_nodeOne, a_nodeTwo); break;
+            case NodeTypes.Reciever: FormConnection(a_nodeOne, a_nodeTwo); break;
+        }
+    }
+    private void Connection(Node a_nodeOne, Node a_nodeTwo)
+    {
+        switch (a_nodeTwo.nodeData.nodeType)
+        {
+            case NodeTypes.transmitter: FormConnection(a_nodeOne, a_nodeTwo); break;
+            case NodeTypes.Connection: FormConnection(a_nodeOne, a_nodeTwo); break;
+            case NodeTypes.Reciever: FormConnection(a_nodeOne, a_nodeTwo); break;
+        }
+    }
+    private void Reciever(Node a_nodeOne, Node a_nodeTwo)
+    {
+        switch (a_nodeTwo.nodeData.nodeType)
+        {
+            case NodeTypes.transmitter: FormConnection(a_nodeOne, a_nodeTwo); break;
+            case NodeTypes.Connection: FormConnection(a_nodeOne, a_nodeTwo); break;
+            case NodeTypes.Reciever: Debug.Log("cant connect to reciever"); break;
+        }
+    }
+
+
+
+    private void FormConnection(Node a_nodeOne, Node a_nodeTwo)
+    {
+        a_nodeOne.AddTargetNode(a_nodeTwo.nodeObject); //add nearby to self
+        a_nodeTwo.AddTargetNode(a_nodeOne.nodeObject); //add self to nearby
     }
 }

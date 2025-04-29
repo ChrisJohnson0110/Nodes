@@ -7,13 +7,11 @@ public class Node : MonoBehaviour
     public NodeData nodeData { get; private set; }
     public GameObject nodeObject;
     public List<Upgrade> upgrades;
-    public List<Node> connections;
-    public Queue StoredData;
+    protected Queue<GameObject> connections;
 
     public bool timerRunning = false;
     private float timer;
     
-
     public Node(NodeData a_nodeData)
     {
         nodeData = a_nodeData;
@@ -53,6 +51,37 @@ public class Node : MonoBehaviour
     }
     #endregion
 
+    public virtual void PacketArrived(GameObject a_packet)
+    {
 
+    }
+
+
+    protected GameObject AddTarget(GameObject target)
+    {
+        connections.Enqueue(target);
+        return target;
+    }
+
+    public GameObject GetNextTarget()
+    {
+        if (connections.Count > 0)
+        {
+            return connections.Dequeue();
+        }
+
+        return null;
+    }
+
+    protected float GetSpeed()
+    {
+        //TODO increase by any upgrades
+        return nodeData.transferSpeed;
+    }
+
+    public void AddTargetNode(GameObject a_targetNode)
+    {
+        connections.Enqueue(a_targetNode);
+    }
 
 }
