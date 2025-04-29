@@ -24,7 +24,7 @@ public class Transmitter : Node
         }
     }
 
-    public override void PacketArrived(GameObject a_packet)
+    public override void PacketArrived(Packet a_packet)
     {
         Debug.LogError($"ERROR: PACKET ARRIVED AT TRANSMITTER {a_packet} ");
     }

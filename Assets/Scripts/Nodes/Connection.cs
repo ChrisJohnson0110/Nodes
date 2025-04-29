@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Connection : Node
 {
-    public Queue<GameObject> StoredPackets = new Queue<GameObject>();
+    public Queue<Packet> StoredPackets = new Queue<Packet>();
 
     protected override void OnTimerComplete()
     {
@@ -12,14 +12,15 @@ public class Connection : Node
         {
             if (StoredPackets != null)
             {
-                Debug.Log(connections.ToString());
-                //Packet packet = StoredPackets.Dequeue().GetComponent<Packet>();
-                //packet.UpdateTarget(AddTarget(GetNextTarget()));
+                Packet packet = StoredPackets.Dequeue();
+                GameObject nextTarget = connections.Dequeue();
+                packet.UpdateTarget(nextTarget);
+                connections.Enqueue(nextTarget);
             }
         }
     }
 
-    public override void PacketArrived(GameObject a_packet)
+    public override void PacketArrived(Packet a_packet)
     {
         StoredPackets.Enqueue(a_packet);
     }

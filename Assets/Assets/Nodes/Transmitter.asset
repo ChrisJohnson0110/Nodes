@@ -16,4 +16,5 @@ MonoBehaviour:
   prefab: {fileID: 2974674018742357825, guid: 7612f2dc4f9faf545af1b6855e923e84, type: 3}
   connectionRange: 2
   transferSpeed: 2
+  transmittionSpeed: 1
   capacity: 2

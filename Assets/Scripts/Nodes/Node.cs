@@ -25,8 +25,8 @@ public class Node : MonoBehaviour
             timer -= Time.deltaTime;
             if (timer <= 0f)
             {
+                ResetTimer();
                 OnTimerComplete();
-                StartTimer();
             }
         }
     }
@@ -34,7 +34,7 @@ public class Node : MonoBehaviour
     #region TIMER
     public void StartTimer()
     {
-        timer = nodeData.transferSpeed;
+        timer = nodeData.transmittionSpeed;
         timerRunning = true;
     }
     public void StopTimer()
@@ -43,7 +43,7 @@ public class Node : MonoBehaviour
     }
     public void ResetTimer()
     {
-        timer = nodeData.transferSpeed;
+        timer = nodeData.transmittionSpeed;
     }
     protected virtual void OnTimerComplete()
     {
@@ -51,7 +51,7 @@ public class Node : MonoBehaviour
     }
     #endregion
 
-    public virtual void PacketArrived(GameObject a_packet)
+    public virtual void PacketArrived(Packet a_packet)
     {
 
     }

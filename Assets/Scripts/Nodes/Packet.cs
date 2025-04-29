@@ -26,7 +26,7 @@ public class Packet : MonoBehaviour
         if (progress >= 1f)
         {
             transform.position = TargetPos;
-            TargetObject.GetComponent<Node>().PacketArrived(this.gameObject);
+            TargetObject.GetComponent<Node>().PacketArrived(this);
         }
     }
 

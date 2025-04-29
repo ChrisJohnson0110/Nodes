@@ -10,8 +10,8 @@ public class NodeManager : MonoBehaviour
     private Dictionary<NodeTypes, HashSet<NodeTypes>> connectionRules = new Dictionary<NodeTypes, HashSet<NodeTypes>> //rules for connections
     {
         { NodeTypes.transmitter, new HashSet<NodeTypes> { NodeTypes.Connection, NodeTypes.Reciever } },
-        { NodeTypes.Connection,  new HashSet<NodeTypes> { NodeTypes.transmitter, NodeTypes.Connection, NodeTypes.Reciever } },
-        { NodeTypes.Reciever,    new HashSet<NodeTypes> { NodeTypes.transmitter, NodeTypes.Connection } }
+        { NodeTypes.Connection,  new HashSet<NodeTypes> { NodeTypes.Connection, NodeTypes.Reciever } },
+        { NodeTypes.Reciever,    new HashSet<NodeTypes> { NodeTypes.Connection } }
     };
 
 
@@ -62,15 +62,15 @@ public class NodeManager : MonoBehaviour
 
     private void AddNodeConnections(Node a_node)
     {
-        float range = a_node.nodeData.connectionRange;
-
         foreach (Node node in nodes.Values)
         {
             if (node == a_node)
             {
                 continue;
             }
-            if (Vector2.Distance(a_node.transform.position, node.transform.position) < range)
+
+            //should there be a connection
+            if (Vector2.Distance(a_node.transform.position, node.transform.position) < a_node.nodeData.connectionRange)
             {
                 //does a connection rule apply for the nodedata type
                 if (connectionRules.TryGetValue(a_node.nodeData.nodeType, out var allowedTargets)) 
@@ -80,18 +80,29 @@ public class NodeManager : MonoBehaviour
                     {
                         FormConnection(a_node, node);
                     }
-                    else
+                }
+               
+            }
+
+            //should there be a connection established back
+            if (Vector2.Distance(a_node.transform.position, node.transform.position) < node.nodeData.connectionRange)
+            {
+                if (connectionRules.TryGetValue(node.nodeData.nodeType, out var allowedTargetss)) 
+                {
+                    //if the node is allowed to connect
+                    if (allowedTargetss.Contains(a_node.nodeData.nodeType))
                     {
-                        Debug.Log($"Cannot connect {a_node.nodeData.nodeType} to {node.nodeData.nodeType}");
+                        FormConnection(node, a_node);
                     }
                 }
             }
+
         }
     }
 
+    //add connections between nodes
     private void FormConnection(Node a_nodeOne, Node a_nodeTwo)
     {
-        a_nodeOne.AddTargetNode(a_nodeTwo.nodeObject); //add nearby to self
-        //a_nodeTwo.AddTargetNode(a_nodeOne.nodeObject); //add self to nearby
+        a_nodeOne.AddTargetNode(a_nodeTwo.nodeObject); //add node two as a target for node 
     }
 }

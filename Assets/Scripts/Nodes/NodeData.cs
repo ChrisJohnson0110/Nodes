@@ -11,5 +11,6 @@ public class NodeData : ScriptableObject
     public GameObject prefab;
     public float connectionRange;
     public float transferSpeed;
+    public float transmittionSpeed;
     public float capacity;
 }
