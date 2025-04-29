@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Packet : MonoBehaviour
 {
-    [HideInInspector] public Vector2 startingPos;
-    [HideInInspector] public Vector2 TargetPos;
-    [HideInInspector] public GameObject TargetObject;
-    [HideInInspector] public float speed;
+    public Vector2 startingPos;
+    public Vector2 TargetPos;
+    public GameObject TargetObject;
+    public float speed;
+    private float progress = 0f;
 
     private void OnEnable()
     {
@@ -20,15 +21,12 @@ public class Packet : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Vector3.Lerp(startingPos, TargetPos, speed);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject == TargetObject)
+        progress += speed * Time.deltaTime;
+        transform.position = Vector3.Lerp(startingPos, TargetPos, progress);
+        if (progress >= 1f)
         {
-            Debug.Log("packet reached target");
-            gameObject.GetComponent<Node>().PacketArrived(this.gameObject);
+            transform.position = TargetPos;
+            TargetObject.GetComponent<Node>().PacketArrived(this.gameObject);
         }
     }
 
@@ -37,5 +35,6 @@ public class Packet : MonoBehaviour
         TargetObject = a_targetObject;
         TargetPos = TargetObject.transform.position;
         startingPos = transform.position;
+        progress = 0f;
     }
 }

@@ -92,6 +92,6 @@ public class NodeManager : MonoBehaviour
     private void FormConnection(Node a_nodeOne, Node a_nodeTwo)
     {
         a_nodeOne.AddTargetNode(a_nodeTwo.nodeObject); //add nearby to self
-        a_nodeTwo.AddTargetNode(a_nodeOne.nodeObject); //add self to nearby
+        //a_nodeTwo.AddTargetNode(a_nodeOne.nodeObject); //add self to nearby
     }
 }

@@ -7,12 +7,12 @@ public class Node : MonoBehaviour
     public NodeData nodeData { get; private set; }
     public GameObject nodeObject;
     public List<Upgrade> upgrades;
-    protected Queue<GameObject> connections;
+    protected Queue<GameObject> connections = new Queue<GameObject>();
 
     public bool timerRunning = false;
     private float timer;
     
-    public Node(NodeData a_nodeData)
+    public void Initialize(NodeData a_nodeData)
     {
         nodeData = a_nodeData;
         StartTimer();
@@ -65,9 +65,12 @@ public class Node : MonoBehaviour
 
     public GameObject GetNextTarget()
     {
-        if (connections.Count > 0)
+        if (connections != null)
         {
-            return connections.Dequeue();
+            if (connections.Count > 0)
+            {
+                return connections.Dequeue();
+            }
         }
 
         return null;

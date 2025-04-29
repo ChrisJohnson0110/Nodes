@@ -4,19 +4,18 @@ using UnityEngine;
 
 public class Connection : Node
 {
-    public Queue<GameObject> StoredPackets;
-
-    public Connection(NodeData a_nodeData) : base(a_nodeData)
-    {
-
-    }
+    public Queue<GameObject> StoredPackets = new Queue<GameObject>();
 
     protected override void OnTimerComplete()
     {
-        if (StoredPackets != null)
+        if (connections.Count >= 1 && StoredPackets.Count >= 1)
         {
-            Packet packet = StoredPackets.Dequeue().GetComponent<Packet>();
-            packet.UpdateTarget(AddTarget(GetNextTarget()));
+            if (StoredPackets != null)
+            {
+                Debug.Log(connections.ToString());
+                //Packet packet = StoredPackets.Dequeue().GetComponent<Packet>();
+                //packet.UpdateTarget(AddTarget(GetNextTarget()));
+            }
         }
     }
 
