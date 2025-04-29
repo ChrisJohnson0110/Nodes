@@ -9,8 +9,16 @@ public class Transmitter : Node
 
     }
 
-    private void Update()
+    protected override void OnTimerComplete()
     {
+        //get an object from the nodepacketmanager
+        //set pos to here
+        //set speed to this node speed
         
+        //get target from node queue
+        //set target to node queue
+        //re add target to queue
     }
+
+
 }

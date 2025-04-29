@@ -22,9 +22,16 @@ public class NodeManager : MonoBehaviour
 
     public void CreateNewNode(NodeData a_nodeData, Vector2 a_position)
     {
-        //node creation
-        GameObject nodeObject = Instantiate(a_nodeData.prefab);
-        Node node = nodeObject.AddComponent<Node>();
+        GameObject nodeObject = Instantiate(a_nodeData.prefab); ;
+        Node node = null;
+
+        switch (a_nodeData.nodeType)
+        {
+            case NodeTypes.transmitter: node = nodeObject.AddComponent<Transmitter>(); break;
+            case NodeTypes.Connection: node = nodeObject.AddComponent<Connection>(); break;
+            case NodeTypes.Reciever: node = nodeObject.AddComponent<Reciever>(); break;
+        }
+
         node.nodeObject = nodeObject;
         node.nodeObject.layer = LayerMask.NameToLayer("Node");
         node.nodeObject.transform.SetParent(this.gameObject.transform);
