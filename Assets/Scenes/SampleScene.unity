@@ -217,7 +217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   packetPrefab: {fileID: 24718460179828157, guid: 0a6385213ab0e0c48b270972d69fd708, type: 3}
-  numberOfPacketsToPool: 50
+  numberOfPacketsToPool: 20
 --- !u!4 &125786627
 Transform:
   m_ObjectHideFlags: 0

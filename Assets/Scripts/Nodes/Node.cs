@@ -47,7 +47,6 @@ public class Node : MonoBehaviour
     }
     protected virtual void OnTimerComplete()
     {
-        Debug.Log("Timer Fin");
     }
     #endregion
 

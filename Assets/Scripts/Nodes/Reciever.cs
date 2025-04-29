@@ -8,4 +8,9 @@ public class Reciever : Node
     {
         base.OnTimerComplete();
     }
+
+    public override void PacketArrived(Packet a_packet)
+    {
+        a_packet.gameObject.SetActive(false);
+    }
 }

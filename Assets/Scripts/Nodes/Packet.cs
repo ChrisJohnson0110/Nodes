@@ -9,6 +9,7 @@ public class Packet : MonoBehaviour
     public GameObject TargetObject;
     public float speed;
     private float progress = 0f;
+    private bool packetArrived = false;
 
     private void OnEnable()
     {
@@ -23,10 +24,14 @@ public class Packet : MonoBehaviour
     {
         progress += speed * Time.deltaTime;
         transform.position = Vector3.Lerp(startingPos, TargetPos, progress);
-        if (progress >= 1f)
+        if (Vector2.Distance(transform.position, TargetObject.transform.position) < 0.001f)
         {
             transform.position = TargetPos;
-            TargetObject.GetComponent<Node>().PacketArrived(this);
+            if (packetArrived == false)
+            {
+                TargetObject.GetComponent<Node>().PacketArrived(this);
+                packetArrived = true;
+            }
         }
     }
 
@@ -36,5 +41,6 @@ public class Packet : MonoBehaviour
         TargetPos = TargetObject.transform.position;
         startingPos = transform.position;
         progress = 0f;
+        packetArrived = false;
     }
 }
