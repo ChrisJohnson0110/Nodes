@@ -6,7 +6,6 @@ public class Packet : MonoBehaviour
 {
     public Vector2 startingPos;
     public Vector2 TargetPos;
-    public GameObject LastObject;
     public GameObject TargetObject;
     public float speed;
     private float progress = 0f;
@@ -36,9 +35,9 @@ public class Packet : MonoBehaviour
         }
     }
 
+    //TODO might be worth moving to package manager
     public void UpdateTarget(GameObject a_targetObject)
     {
-        LastObject = TargetObject;
         TargetObject = a_targetObject;
         TargetPos = TargetObject.transform.position;
         startingPos = transform.position;
