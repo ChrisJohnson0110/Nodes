@@ -23,7 +23,7 @@ public class RangeIndicator : MonoBehaviour
     public void UpdateRangeIndicator(NodeData a_NodeData, Color32 a_IndicatorColor)
     {
         gameObject.GetComponent<SpriteRenderer>().color = a_IndicatorColor;
-        gameObject.transform.localScale = new Vector2(1, 1) * a_NodeData.connectionRange;
+        gameObject.transform.localScale = new Vector2(1, 1) * (a_NodeData.connectionRange * 2);
         gameObject.transform.position = ClickedPos.instance.LastClickedPosition;
     }
 
