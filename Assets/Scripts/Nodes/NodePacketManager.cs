@@ -44,8 +44,6 @@ public class NodePacketManager : MonoBehaviour
                 return packets[i];
             }
         }
-
-        Debug.LogError("Not enough packet objects within pool");
         return null;
     }
 }
