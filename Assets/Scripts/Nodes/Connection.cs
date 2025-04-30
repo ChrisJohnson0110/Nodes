@@ -16,21 +16,7 @@ public class Connection : Node
                 //if both are last then there must
 
                 Packet packet = StoredPackets.Dequeue();
-
                 GameObject nextTarget = connections.Dequeue();
-                if (packet.LastObject == nextTarget)
-                {
-                    connections.Enqueue(nextTarget);
-                    GameObject target = connections.Dequeue();
-                    if (packet.LastObject == target)
-                    {
-                        connections.Enqueue(target);
-                        return;
-                    }
-                    packet.UpdateTarget(target);
-                    connections.Enqueue(target);
-                    return;
-                }
                 packet.UpdateTarget(nextTarget);
                 connections.Enqueue(nextTarget);
             }
