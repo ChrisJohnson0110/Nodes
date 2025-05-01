@@ -37,7 +37,7 @@ public class NodeMenus : MonoBehaviour
     {
         HideNodeCreationMenu();
         NodeInfomationMenuObject.SetActive(true);
-        NodeInfomationMenu.instance.PopulateMenu(a_node);
+        NodeInfomationMenu.instance.UpdateNodeToDisplay(a_node);
     }
 
     public void HideNodeInfomationMenu()
